@@ -1,7 +1,8 @@
 (ns waffle-solver.core
+  (:require [waffle-solver.factories :refer [create-game]])
+  (:require [waffle-solver.display :refer [print-game]])
   (:gen-class))
 
 (defn -main
-  "I don't do a whole lot ... yet."
   [& args]
-  (println "Hello, World!"))
+  (print-game (create-game) :waffle))
