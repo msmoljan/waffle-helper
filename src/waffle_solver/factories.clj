@@ -3,7 +3,7 @@
   (:require [waffle-solver.game-types :refer [game-types]])
   (:gen-class))
 
-(defn create-letter
+(defn create-square
   "Creates an empty letter"
   [letter type]
   {:pre [(re-matches #"[A-Za-z\.]" letter)
@@ -15,5 +15,5 @@
   ([] (create-game :waffle))
   ([type]
   {:pre (contains? game-types type)}
-  (let [element-count (get-in game-types [type :total-letters])]
-    (repeat element-count (create-letter "." :incorrect)))))
+  (let [element-count (get-in game-types [type :total-squares])]
+    (repeat element-count (create-square "." :incorrect)))))

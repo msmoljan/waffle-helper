@@ -3,7 +3,7 @@
 
 ;; Defines the game types by name and the number of letters each contains
 (def game-types
-  {:waffle        {:total-letters        21
-                   :letters-in-first-row 5}
-   :deluxe-waffle {:total-letters        40
-                   :letters-in-first-row 7}})
+  {:waffle        {:total-squares        21
+                   :squares-in-first-row 5}
+   :deluxe-waffle {:total-squares        40
+                   :squares-in-first-row 7}})
