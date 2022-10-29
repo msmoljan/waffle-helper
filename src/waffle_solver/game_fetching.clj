@@ -1,2 +1,2 @@
-(ns waffle-solver.game-fetcher
+(ns waffle-solver.game-fetching
   (:gen-class))
