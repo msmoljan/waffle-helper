@@ -9,6 +9,10 @@
 (def expected-new-deluxe-waffle-game-display
   ". . . . . . .\n.   .   .   .\n. . . . . . .\n.   .   .   .\n. . . . . . .\n.   .   .   .\n. . . . . . .\n")
 
-(deftest game-display-string-test
-  (testing "New waffle game display string should be properly generated")
+(deftest waffle-game-display-string-test
+  (testing "New Waffle game display string should be properly generated")
   (is (= (game-display-string (create-game :waffle) :waffle) expected-new-waffle-game-display)))
+
+(deftest deluxe-waffle-game-display-string-test
+  (testing "New Deluxe Waffle game display string should be properly generated")
+  (is (= (game-display-string (create-game :deluxe-waffle) :deluxe-waffle) expected-new-deluxe-waffle-game-display)))
