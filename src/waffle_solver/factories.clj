@@ -15,5 +15,5 @@
   ([] (create-game :waffle))
   ([type]
   {:pre (contains? game-types type)}
-  (let [element-count (get game-types type)]
+  (let [element-count (get-in game-types [type :total-letters])]
     (repeat element-count (create-letter "." :incorrect)))))

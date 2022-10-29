@@ -23,9 +23,9 @@
     (is (= (create-game) (create-game :waffle)))))
 
 (deftest create-game-test
-  (doseq [[game-type letter-count] game-types]
+  (doseq [[game-type game-setup] game-types]
     (let [game (create-game game-type)]
       (is
         (and
-          (= (count game) letter-count)
+          (= (count game) (get game-setup :total-letters))
           (every? #(= % {:letter "." :type :incorrect}) game))))))
