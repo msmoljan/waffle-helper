@@ -10,7 +10,8 @@
          (some #{type} [:correct :maybe :incorrect])]}
   {:letter (upper-case letter) :type type})
 
-(defn create-game "Creates an empty game board"
+(defn create-game
+  "Creates an empty game board"
   ([] (create-game :waffle))
   ([type]
   {:pre (contains? game-types type)}
