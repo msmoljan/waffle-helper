@@ -20,11 +20,10 @@
 
 (defn game-display-string [game]
   (let
-    [game-type (get game :type)
-     squares (get game :squares)
-     letters-in-odd-rows (get-in game-types [game-type :squares-in-first-row])
-     letters-in-even-rows (count-letters-in-even-rows letters-in-odd-rows)
-     partitioned-squares (partition-squares squares letters-in-odd-rows letters-in-even-rows)]
+    [squares (get game :squares)
+     odd-row-letter-count (get-in game [:setup :squares-in-first-row])
+     even-row-letter-count (count-letters-in-even-rows odd-row-letter-count)
+     partitioned-squares (partition-squares squares odd-row-letter-count even-row-letter-count)]
     (join
       (map
         (fn [row-pair]
@@ -33,27 +32,27 @@
             (even-row-string (second row-pair))))
         (partition-all 2 partitioned-squares)))))
 
-(defn- count-letters-in-even-rows [letters-in-odd-rows]
-  (Math/round (float (/ letters-in-odd-rows 2))))
+(defn- count-letters-in-even-rows [odd-row-letter-count]
+  (Math/round (float (/ odd-row-letter-count 2))))
 
 (defn- partition-squares
   "Partitions the game into a list of lists, each internal list being a row of the game"
-  [game letters-in-odd-rows letters-in-even-rows]
+  [game odd-row-letter-count even-row-letter-count]
   (if (empty? game)
     nil
     (concat
-      (take-two-rows game letters-in-odd-rows letters-in-even-rows)
+      (take-two-rows game odd-row-letter-count even-row-letter-count)
       (partition-squares
-        (drop (+ letters-in-odd-rows letters-in-even-rows) game)
-        letters-in-odd-rows
-        letters-in-even-rows))))
+        (drop (+ odd-row-letter-count even-row-letter-count) game)
+        odd-row-letter-count
+        even-row-letter-count))))
 
 (defn- take-two-rows
   "Creates a list of lists of the first two rows in the game segment"
-  [game-segment letters-in-odd-rows letters-in-even-rows]
+  [game-segment odd-row-letter-count even-row-letter-count]
   (let
-    [first-row (take letters-in-odd-rows game-segment)
-     second-row (take letters-in-even-rows (drop letters-in-odd-rows game-segment))]
+    [first-row (take odd-row-letter-count game-segment)
+     second-row (take even-row-letter-count (drop odd-row-letter-count game-segment))]
     (if (empty? second-row)
       (list first-row)
       (list first-row second-row))))
