@@ -16,4 +16,6 @@
   ([type]
    {:pre (contains? game-types type)}
    (let [element-count (get-in game-types [type :total-squares])]
-     (repeat element-count (create-square "." :incorrect)))))
+     {:squares (repeat element-count (create-square "." :incorrect))
+      :type type
+      :setup (get game-types type)})))

@@ -23,9 +23,14 @@
     (is (= (create-game) (create-game :waffle)))))
 
 (deftest create-game-test
-  (doseq [[game-type game-setup] game-types]
-    (let [game (create-game game-type)]
+  (doseq [[game-type] game-types]
+    (let [game (create-game game-type)
+          squares (get game :squares)
+          type (get game :type)
+          setup (get game :setup)]
       (is
         (and
-          (= (count game) (get game-setup :total-squares))
-          (every? #(= % {:letter "." :type :incorrect}) game))))))
+          (= type game-type)
+          (= setup (get game-types game-type))
+          (= (count squares) (get setup :total-squares))
+          (every? #(= % {:letter "." :type :incorrect}) squares))))))
