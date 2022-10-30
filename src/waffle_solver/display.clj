@@ -51,24 +51,24 @@
       (list first-row second-row))))
 
 (defn- print-odd-row [squares terminal]
-  (print-row squares "  " terminal))
+  (print-row squares " " terminal))
 
 (defn- print-even-row [squares terminal]
   (print-row squares "     " terminal))
 
 (defn- print-row [squares separator-string terminal]
-  (do
-    (if (not (or (nil? squares) (empty? squares)))
-      (doseq [square squares]
-        (t/set-bg-color
-          terminal
-          (case (get square :type)
-            :correct :green
-            :maybe :yellow
-            :incorrect :red))
-        (do
-          (t/put-string terminal (get square :letter))
-          (t/set-bg-color terminal :default)
-          (t/put-string terminal separator-string)))))
+  (if (not (or (nil? squares) (empty? squares)))
+    (doseq [square squares]
+      (t/set-bg-color
+        terminal
+        (case (get square :type)
+          :correct :green
+          :maybe :yellow
+          :incorrect :default))
+      (do
+        (t/put-string terminal (str " " (get square :letter) " "))
+        (t/set-bg-color terminal :default)
+        (t/put-string terminal separator-string)))
+    nil)
   (t/put-string terminal "\n"))
 
