@@ -1,8 +1,9 @@
 ;; Presentation code for the game board
 
 (ns waffle-solver.display
-  (:require [clojure.string :refer [join, trim]]
-            [waffle-solver.game-types :refer [game-types]])
+  (:require
+    [clojure.string :refer [join, trim]]
+    [waffle-solver.game-types :refer [game-types]])
   (:gen-class))
 
 (declare
@@ -18,11 +19,12 @@
   (print (game-display-string game)))
 
 (defn game-display-string [game]
-  (let [game-type (get game :type)
-        squares (get game :squares)
-        letters-in-odd-rows (get-in game-types [game-type :squares-in-first-row])
-        letters-in-even-rows (count-letters-in-even-rows letters-in-odd-rows)
-        partitioned-squares (partition-squares squares letters-in-odd-rows letters-in-even-rows)]
+  (let
+    [game-type (get game :type)
+     squares (get game :squares)
+     letters-in-odd-rows (get-in game-types [game-type :squares-in-first-row])
+     letters-in-even-rows (count-letters-in-even-rows letters-in-odd-rows)
+     partitioned-squares (partition-squares squares letters-in-odd-rows letters-in-even-rows)]
     (join
       (map
         (fn [row-pair]
@@ -49,8 +51,9 @@
 (defn- take-two-rows
   "Creates a list of lists of the first two rows in the game segment"
   [game-segment letters-in-odd-rows letters-in-even-rows]
-  (let [first-row (take letters-in-odd-rows game-segment)
-        second-row (take letters-in-even-rows (drop letters-in-odd-rows game-segment))]
+  (let
+    [first-row (take letters-in-odd-rows game-segment)
+     second-row (take letters-in-even-rows (drop letters-in-odd-rows game-segment))]
     (if (empty? second-row)
       (list first-row)
       (list first-row second-row))))
